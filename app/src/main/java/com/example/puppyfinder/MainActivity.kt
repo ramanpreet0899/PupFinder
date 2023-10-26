@@ -27,9 +27,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -67,13 +70,13 @@ class MainActivity : ComponentActivity() {
         TextField(
             value = query,
             onValueChange = { newQuery -> onQueryChange(newQuery) },
-            label = { Text("find your pup") },
+            label = { Text("find your pup", fontFamily = FontFamily(Font(R.font.playpen_sans_thin, FontWeight.Light))) },
             singleLine = true,
             modifier = Modifier
                 .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
                 .fillMaxWidth()
                 .shadow(1.dp),
-            textStyle = TextStyle(Color.Blue, fontFamily = FontFamily.Monospace, fontSize = 14.sp),
+            textStyle = TextStyle(Color.Blue, fontFamily = FontFamily(Font(R.font.playpen_sans_semi_bold, FontWeight.SemiBold)), fontSize = 14.sp),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Search
             ),
@@ -110,7 +113,7 @@ class MainActivity : ComponentActivity() {
                     Text(
                         text = breeds[index].name,
                         fontSize = 14.sp,
-                        fontFamily = FontFamily.Cursive,
+                        fontFamily = FontFamily(Font(R.font.playpen_sans_regular, FontWeight.Normal)),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.weight(1f)
                     )
