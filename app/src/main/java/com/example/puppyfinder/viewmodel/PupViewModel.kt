@@ -13,13 +13,15 @@ import javax.inject.Inject
 @HiltViewModel
 class PupViewModel @Inject constructor(private val breedRepository: BreedRepository) : ViewModel() {
     private val _breeds = MutableLiveData<List<BreedsItem>>()
-    val breeds : LiveData<List<BreedsItem>> = _breeds
+    val breeds: LiveData<List<BreedsItem>> = _breeds
 
     init {
         loadBreeds()
     }
 
     private fun loadBreeds() {
-        viewModelScope.launch { _breeds.value = breedRepository.getBreeds() }
+        viewModelScope.launch {
+            _breeds.value = breedRepository.getBreeds()
+        }
     }
 }
