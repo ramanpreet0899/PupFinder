@@ -22,6 +22,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -36,7 +38,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.puppyfinder.model.Breed
+import androidx.lifecycle.LiveData
+import com.example.puppyfinder.model.BreedsItem
 import com.example.puppyfinder.viewmodel.PupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,16 +56,15 @@ class MainActivity : ComponentActivity() {
                     .padding(16.dp)
             ) {
                 SearchBar(searchQuery.value, onQueryChange = { searchQuery.value = it }, {})
-                val dummyBreedList = listOf<Breed>(
-                    Breed("golden reteriver", 1, painterResource(id = R.drawable.dog)),
-                    Breed("lab", 1, painterResource(id = R.drawable.dog)),
-                    Breed("husky", 1, painterResource(id = R.drawable.dog)),
-                    Breed("maltise", 1, painterResource(id = R.drawable.dog)),
-                    Breed("chuawa", 1, painterResource(id = R.drawable.dog))
-                )
-                ShowBreeds(dummyBreedList)
+                showScreen(viewModel.breeds)
             }
         }
+    }
+
+    @Composable
+    private fun showScreen(breeds: LiveData<List<BreedsItem>>) {
+        val data by remember(viewModel) { viewModel.breeds }.observeAsState(emptyList())
+        ShowBreeds(breeds = data)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -100,7 +102,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun ShowBreeds(breeds: List<Breed>) {
+    fun ShowBreeds(breeds: List<BreedsItem>) {
         LazyColumn {
             items(breeds.size) { index ->
                 Row(
@@ -117,7 +119,7 @@ class MainActivity : ComponentActivity() {
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Image(
-                            painter = breeds[index].image,
+                            painter = painterResource(id = R.drawable.dog),
                             contentDescription = "breed image",
                             modifier = Modifier.fillMaxSize()
                         )
