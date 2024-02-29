@@ -1,23 +1,19 @@
-package com.example.puppyfinder
+package com.example.puppyfinder.ui.theme.activities
 
 import AppTheme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -28,7 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -37,7 +33,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.LiveData
+import com.example.puppyfinder.R
 import com.example.puppyfinder.model.BreedsItem
 import com.example.puppyfinder.viewmodel.PupViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,14 +53,14 @@ class MainActivity : ComponentActivity() {
                         .padding(16.dp)
                 ) {
                     SearchBar(searchQuery.value, onQueryChange = { searchQuery.value = it }, {})
-                    showScreen(viewModel.breeds)
+                    showScreen()
                 }
             }
         }
     }
 
     @Composable
-    private fun showScreen(breeds: LiveData<List<BreedsItem>>) {
+    private fun showScreen() {
         val data by remember(viewModel) { viewModel.breeds }.observeAsState(emptyList())
         ShowBreeds(breeds = data)
     }
@@ -107,23 +103,11 @@ class MainActivity : ComponentActivity() {
             items(breeds.size) { index ->
                 Row(
                     modifier = Modifier
+                        .shadow(shape = RectangleShape, elevation = 0.5.dp)
                         .fillMaxWidth()
-                        .height(100.dp)
-                        .padding(top = 10.dp)
+                        .wrapContentHeight()
+                        .padding(top = 20.dp)
                 ) {
-                    Card(
-                        modifier = Modifier
-                            .shadow(0.5.dp)
-                            .width(50.dp)
-                            .height(50.dp),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.dog),
-                            contentDescription = "breed image",
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
                     Text(
                         text = breeds[index].name,
                         fontSize = 14.sp,
