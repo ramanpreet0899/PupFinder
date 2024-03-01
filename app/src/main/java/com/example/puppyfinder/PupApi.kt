@@ -11,6 +11,9 @@ interface PupApi {
     @GET("v1/breeds")
     suspend fun getBreeds(@Query("api_key") apiKey: String = "live_LYYFOYLv9e9YKnnIrhm186pgGNpFo9SQhEVyDfR1BKClyjWPggToWerirHjwZm0a") : List<Breed>
 
+    @GET("v1/breeds/search")
+    suspend fun getSearchedBreed(@Query("q") query: String): List<Breed>
+
     @GET("v1/breeds/{id}")
     suspend fun getBreedById(@Path("id") breedId: Int) : BreedInfo
 

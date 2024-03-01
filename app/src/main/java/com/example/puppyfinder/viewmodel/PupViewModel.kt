@@ -27,9 +27,15 @@ class PupViewModel @Inject constructor(private val breedRepository: BreedReposit
         loadBreeds()
     }
 
-    private fun loadBreeds() {
+    fun loadBreeds() {
         viewModelScope.launch {
             _breeds.value = breedRepository.getBreeds()
+        }
+    }
+
+    fun searchBreed(query: String) {
+        viewModelScope.launch {
+            _breeds.value = breedRepository.searchBreed(query)
         }
     }
 

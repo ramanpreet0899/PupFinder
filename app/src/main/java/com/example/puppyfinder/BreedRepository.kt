@@ -9,6 +9,10 @@ class BreedRepository(val pupApi: PupApi) {
        return pupApi.getBreeds()
     }
 
+    suspend fun searchBreed(query: String): List<Breed> {
+        return pupApi.getSearchedBreed(query)
+    }
+
     suspend fun getBreedInfo(id: Int) : BreedInfo {
         return pupApi.getBreedById(id)
     }
