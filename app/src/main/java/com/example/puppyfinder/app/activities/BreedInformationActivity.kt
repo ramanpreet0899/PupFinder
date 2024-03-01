@@ -34,7 +34,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.puppyfinder.R
+import com.example.puppyfinder.model.BreedInfo
 import com.example.puppyfinder.viewmodel.PupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,6 +63,9 @@ class BreedInformationActivity : ComponentActivity() {
     @Composable
     private fun ShowScreen(viewModel: PupViewModel) {
         val data by remember(viewModel) { viewModel.breedInfo }.observeAsState()
+        data?.let {
+            showImage(viewModel = viewModel, data = it)
+        }
         Text(
             text = data?.name.orEmpty(),
             modifier = Modifier
@@ -75,39 +80,28 @@ class BreedInformationActivity : ComponentActivity() {
             ),
             fontSize = 20.sp
         )
-        DogDescriptionRow(R.drawable.ic_weight, data?.weight?.metric.orEmpty() )
+        //todo, change icons
+        DogDescriptionRow(R.drawable.ic_weight, data?.weight?.metric.orEmpty())
         DogDescriptionRow(R.drawable.ic_height, data?.height?.metric.orEmpty())
         DogDescriptionRow(R.drawable.ic_weight, data?.lifeSpan.orEmpty())
         DogDescriptionRow(R.drawable.ic_weight, data?.breedGroup.orEmpty())
         DogDescriptionRow(R.drawable.ic_weight, data?.bredFor.orEmpty())
         Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = "Gallery",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            textAlign = TextAlign.Center,
-            fontFamily = FontFamily(
-                Font(
-                    R.font.playpen_sans_regular,
-                    FontWeight.Normal
-                )
-            ),
-            fontSize = 20.sp
-        )
-       // CreateImageGallery()
     }
 
-//    @Composable
-//    fun CreateImageGallery() {
-//        LazyVerticalGrid(
-//            columns = GridCells.Fixed(3),
-//            content = {},
-//            modifier = Modifier.padding(5.dp)
-//        ) {
-//            //
-//        }
-//    }
+    @Composable
+    fun showImage(viewModel: PupViewModel, data: BreedInfo?) {
+        viewModel.loadImage(data?.imageId.orEmpty())
+        val image by remember(viewModel) { viewModel.breedImage }.observeAsState()
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(20.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            AsyncImage(model = image?.url.orEmpty(), contentDescription = "image")
+        }
+    }
 
     @Composable
     fun DogDescriptionRow(icon: Int, description: String) {
@@ -156,7 +150,8 @@ class BreedInformationActivity : ComponentActivity() {
 //                    .fillMaxSize()
 //                    .padding(16.dp)
 //            ) {
-//                ShowScreen()
+//                showImage(viewModel)
+//                // ShowScreen(viewModel)
 //            }
 //        }
 //    }

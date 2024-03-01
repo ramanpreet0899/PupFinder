@@ -16,5 +16,11 @@ data class BreedInfo(
     @SerializedName("name")
     val name: String,
     @SerializedName("weight")
-    val weight: Weight
+    val weight: Weight,
+    @SerializedName("temperament")
+    val temperament: String,
+    @SerializedName("reference_image_id")
+    val imageId: String,
+    @SerializedName("origin")
+    val origin: String
 )
