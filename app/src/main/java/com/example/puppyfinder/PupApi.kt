@@ -1,6 +1,7 @@
 package com.example.puppyfinder
 
 import com.example.puppyfinder.model.Breed
+import com.example.puppyfinder.model.BreedImage
 import com.example.puppyfinder.model.BreedInfo
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,4 +13,7 @@ interface PupApi {
 
     @GET("v1/breeds/{id}")
     suspend fun getBreedById(@Path("id") breedId: Int) : BreedInfo
+
+    @GET("v1/images/{id}")
+    suspend fun getImage(@Path("id") id: String) : BreedImage
 }
