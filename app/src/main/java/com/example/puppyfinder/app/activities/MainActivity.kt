@@ -1,10 +1,12 @@
-package com.example.puppyfinder.ui.theme.activities
+package com.example.puppyfinder.app.activities
 
 import AppTheme
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -34,7 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.puppyfinder.R
-import com.example.puppyfinder.model.BreedsItem
+import com.example.puppyfinder.model.Breed
 import com.example.puppyfinder.viewmodel.PupViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -98,11 +101,20 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun ShowBreeds(breeds: List<BreedsItem>) {
+    fun ShowBreeds(breeds: List<Breed>) {
+        val context = LocalContext.current
         LazyColumn {
             items(breeds.size) { index ->
                 Row(
                     modifier = Modifier
+                        .clickable(onClick = {
+                            val i = Intent(
+                                context,
+                                BreedInformationActivity::class.java
+                            )
+                            i.putExtra("dogId", breeds[index].id)
+                            context.startActivity(i)
+                        })
                         .shadow(shape = RectangleShape, elevation = 0.5.dp)
                         .fillMaxWidth()
                         .wrapContentHeight()
@@ -120,7 +132,6 @@ class MainActivity : ComponentActivity() {
                         textAlign = TextAlign.Center,
                         modifier = Modifier.weight(1f)
                     )
-
                 }
             }
         }
