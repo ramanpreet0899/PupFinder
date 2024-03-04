@@ -55,7 +55,14 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .padding(16.dp)
                 ) {
-                    SearchBar(searchQuery.value, onQueryChange = { searchQuery.value = it }, {})
+                    SearchBar(searchQuery.value, onQueryChange = {
+                        searchQuery.value = it
+                        if (searchQuery.value.isEmpty()) {
+                            viewModel.loadBreeds()
+                        } else {
+                            viewModel.searchBreed(searchQuery.value)
+                        }
+                    }, {})
                     showScreen()
                 }
             }
@@ -63,7 +70,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun showScreen() {
+    fun showScreen() {
         val data by remember(viewModel) { viewModel.breeds }.observeAsState(emptyList())
         ShowBreeds(breeds = data)
     }
