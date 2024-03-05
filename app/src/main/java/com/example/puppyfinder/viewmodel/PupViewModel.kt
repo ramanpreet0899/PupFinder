@@ -23,6 +23,8 @@ class PupViewModel @Inject constructor(private val breedRepository: BreedReposit
     private val _breedImage = MutableLiveData<BreedImage>()
     val breedImage : LiveData<BreedImage> = _breedImage
 
+    val selectedBreedId = MutableLiveData<Int>()
+
     init {
         loadBreeds()
     }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pup finder</string>
+    <string name="breeds_list">Breeds</string>
+    <string name="breed_information">"Breed Information"</string>
+    <string name="back_button">Back</string>
+    <string name="find_your_pup">find your pup</string>
 </resources>
