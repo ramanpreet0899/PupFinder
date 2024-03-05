@@ -73,6 +73,8 @@ private fun ShowScreen(viewModel: PupViewModel) {
     DogDescriptionRow(stringResource(R.string.life_span), data?.lifeSpan.orEmpty())
     DogDescriptionRow(stringResource(R.string.breed_group), data?.breedGroup.orEmpty())
     DogDescriptionRow(stringResource(R.string.bred_for), data?.bredFor.orEmpty())
+    DogDescriptionRow(stringResource(R.string.temperament), data?.temperament.orEmpty())
+    DogDescriptionRow(stringResource(R.string.origin), data?.origin.orEmpty())
     Spacer(modifier = Modifier.height(10.dp))
 }
 

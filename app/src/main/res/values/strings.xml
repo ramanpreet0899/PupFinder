@@ -10,4 +10,6 @@
     <string name="breed_group">"Breed group: "</string>
     <string name="bred_for">"Bred For: "</string>
     <string name="in_metric">%1$s in metric</string>
+    <string name="temperament">"Temperament: "</string>
+    <string name="origin">"Origin: "</string>
 </resources>
