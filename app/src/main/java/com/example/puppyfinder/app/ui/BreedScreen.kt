@@ -118,8 +118,8 @@ fun BreedFinderApp(
                     viewModel = viewModel,
                     modifier = Modifier
                         .fillMaxSize(),
-                    onRowItemClick = {
-                        viewModel.selectedBreedId.postValue(it)
+                    onRowItemClick = { breedId ->
+                        viewModel.setSelectedBreedId(breedId)
                         navController.navigate(BreedScreen.Information.name)
                     }
                 )

@@ -23,7 +23,8 @@ class PupViewModel @Inject constructor(private val breedRepository: BreedReposit
     private val _breedImage = MutableLiveData<BreedImage>()
     val breedImage : LiveData<BreedImage> = _breedImage
 
-    val selectedBreedId = MutableLiveData<Int>()
+    private val _selectedBreedId = MutableLiveData<Int>()
+    val selectedBreedId: LiveData<Int> = _selectedBreedId
 
     init {
         loadBreeds()
@@ -51,5 +52,9 @@ class PupViewModel @Inject constructor(private val breedRepository: BreedReposit
         viewModelScope.launch {
             _breedImage.value = breedRepository.getBreedImage(imageId)
         }
+    }
+
+    fun setSelectedBreedId(id: Int) {
+        _selectedBreedId.value = id
     }
 }
