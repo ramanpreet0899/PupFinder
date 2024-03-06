@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Pup finder</string>
+    <string name="breeds_list">Breeds</string>
+    <string name="breed_information">"Breed Information"</string>
+    <string name="back_button">Back</string>
+    <string name="find_your_pup">find your pup</string>
+    <string name="weight">"Weight: "</string>
+    <string name="height">"Height: "</string>
+    <string name="life_span">"Life Span: "</string>
+    <string name="breed_group">"Breed group: "</string>
+    <string name="bred_for">"Bred For: "</string>
+    <string name="in_metric">%1$s in metric</string>
+    <string name="temperament">"Temperament: "</string>
+    <string name="origin">"Origin: "</string>
 </resources>

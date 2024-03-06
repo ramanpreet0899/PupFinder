@@ -15,9 +15,8 @@
         android:theme="@style/Theme.PuppyFinder"
         tools:targetApi="31">
         <activity
-            android:name=".app.activities.MainActivity"
+            android:name=".app.HostActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.PuppyFinder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.activities.BreedInformationActivity"
-            android:theme="@style/Theme.PuppyFinder"/>
     </application>
 
 </manifest>
