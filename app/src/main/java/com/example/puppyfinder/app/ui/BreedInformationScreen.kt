@@ -4,14 +4,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,12 +34,17 @@ import com.example.puppyfinder.model.BreedInfo
 import com.example.puppyfinder.viewmodel.PupViewModel
 
 @Composable
-fun BreedInformationScreen(viewModel: PupViewModel, modifier: Modifier) {
+fun BreedInformationScreen(
+    viewModel: PupViewModel,
+    modifier: Modifier,
+    onExploreButtonClicked: () -> Unit = {}
+) {
     Column(
-        modifier = modifier
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         viewModel.selectedBreedId.value?.let { viewModel.loadBreedInformation(it) }
         ShowScreen(viewModel)
+        ExploreOtherDogs(onExploreButtonClicked)
     }
 }
 
@@ -93,6 +98,18 @@ fun ShowImage(viewModel: PupViewModel, data: BreedInfo?) {
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.fillMaxWidth()
         )
+    }
+}
+
+@Composable
+fun ExploreOtherDogs(onExploreButtonClicked: () -> Unit) {
+    Button(
+        onClick = onExploreButtonClicked, modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .height(34.dp)
+    ) {
+        Text(text = stringResource(R.string.explore_other_breeds))
     }
 }
 
