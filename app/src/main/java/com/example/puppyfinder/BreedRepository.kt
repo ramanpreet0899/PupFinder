@@ -3,6 +3,7 @@ package com.example.puppyfinder
 import com.example.puppyfinder.model.Breed
 import com.example.puppyfinder.model.BreedImage
 import com.example.puppyfinder.model.BreedInfo
+import com.example.puppyfinder.model.ImagesItem
 
 class BreedRepository(val pupApi: PupApi) {
     suspend fun getBreeds(): List<Breed> {
@@ -19,5 +20,9 @@ class BreedRepository(val pupApi: PupApi) {
 
     suspend fun getBreedImage(imageId: String) : BreedImage {
         return pupApi.getImage(imageId)
+    }
+
+    suspend fun getDogImages() : List<ImagesItem> {
+        return pupApi.getImages()
     }
 }

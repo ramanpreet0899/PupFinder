@@ -8,6 +8,7 @@ import com.example.puppyfinder.BreedRepository
 import com.example.puppyfinder.model.Breed
 import com.example.puppyfinder.model.BreedImage
 import com.example.puppyfinder.model.BreedInfo
+import com.example.puppyfinder.model.ImagesItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,6 +26,9 @@ class PupViewModel @Inject constructor(private val breedRepository: BreedReposit
 
     private val _selectedBreedId = MutableLiveData<Int>()
     val selectedBreedId: LiveData<Int> = _selectedBreedId
+
+    private val _dogImages = MutableLiveData<List<ImagesItem>>()
+    val images : LiveData<List<ImagesItem>> = _dogImages
 
     init {
         loadBreeds()
@@ -56,5 +60,11 @@ class PupViewModel @Inject constructor(private val breedRepository: BreedReposit
 
     fun setSelectedBreedId(id: Int) {
         _selectedBreedId.value = id
+    }
+
+    fun loadDogImages() {
+        viewModelScope.launch {
+            _dogImages.value = breedRepository.getDogImages()
+        }
     }
 }
