@@ -1,5 +1,6 @@
 package com.example.puppyfinder.app.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
@@ -18,10 +19,10 @@ import com.example.puppyfinder.viewmodel.PupViewModel
 @Composable
 fun DogImages(viewModel: PupViewModel, modifier: Modifier) {
     viewModel.loadDogImages()
-    val images  by remember(viewModel) { viewModel.images }.observeAsState(emptyList())
+    val images by remember(viewModel) { viewModel.images }.observeAsState(emptyList())
     Column(modifier = modifier) {
         LazyVerticalGrid(columns = GridCells.Fixed(3), contentPadding = PaddingValues(4.dp)) {
-            items(images.size) {index ->
+            items(images.size) { index ->
                 AsyncImage(
                     model = images[index].url,
                     contentDescription = "image",

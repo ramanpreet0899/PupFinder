@@ -4,6 +4,8 @@ import com.example.puppyfinder.model.Breed
 import com.example.puppyfinder.model.BreedImage
 import com.example.puppyfinder.model.BreedInfo
 import com.example.puppyfinder.model.ImagesItem
+import com.example.puppyfinder.model.PostImage
+import okhttp3.MultipartBody
 
 class BreedRepository(val pupApi: PupApi) {
     suspend fun getBreeds(): List<Breed> {
@@ -24,5 +26,9 @@ class BreedRepository(val pupApi: PupApi) {
 
     suspend fun getDogImages() : List<ImagesItem> {
         return pupApi.getImages()
+    }
+
+    suspend fun uploadDogImage(requestBody: MultipartBody): PostImage {
+        return pupApi.uploadImage(requestBody)
     }
 }
